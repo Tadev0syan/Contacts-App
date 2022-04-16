@@ -1,0 +1,23 @@
+<%- include('./partials/header.ejs') %>
+
+<body>
+	<%- include('./partials/nav.ejs') %>
+	<div class="container">
+	  <form action="/edit/<%= contact.id %>" method="post">
+		  <div class="input-field">
+			  <input type="text" name="name" placeholder=" <%= contact.name %> ">
+		  </div>
+		  <div class="input-field">
+			  <input type="text" name="phone" placeholder=" <%= contact.phone %> ">
+			  <% if(fail){ %>
+				<span class="helper-text" data-error="wrong" data-success="right" style="color:red; font-size:large">Invalid name or phone number</span>
+			  <% } else { %>
+			  	<span class="helper-text" data-error="wrong" data-success="right">Don't use parentheses (0XX XX XX XX | +374 XX XX XX XX)</span>
+			  <% } %>
+		  </div>
+		  <button class="btn waves-effect waves-light" type="submit">Edit
+		  </button>
+	  </form>
+	</div>
+</body>
+</html>

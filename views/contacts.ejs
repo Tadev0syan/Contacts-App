@@ -1,0 +1,55 @@
+  <%- include('./partials/header.ejs') %>
+
+<body>
+	<%- include('./partials/nav.ejs') %>
+
+	<div class="container">
+    <h3>Contacts List</h3>
+	  <table class="centered highlight">
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Phone Number</th>
+              <th>Interaction</th>
+          </tr>
+        </thead>
+
+        <tbody>
+			<% if(contacts.length) { %>
+				<% contacts.forEach(({name, phone, id}) => { %>
+          <tr>
+            <td> <%= name %> </td>
+            <td> <%= phone %></td>
+            <td>  <a class="waves-effect waves-light btn-small" href="/edit/<%= id %>">Edit</a>
+			            <a class="waves-effect waves-light btn-small delete" data-id=" <%= id %> ">Delete</a>
+            </td>
+          </tr>
+		  		<% }) %>
+			<% } else {%>
+        </tbody>
+      </table>
+      <p>No contacts!</p>
+      <% } %>
+	</div>
+
+<script>
+  const btnDelete = document.querySelectorAll('.delete')
+
+  btnDelete.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const id = e.target?.dataset?.id || null
+
+      if (id) {
+          fetch(`/contacts/${id}`, {
+            method: 'DELETE'
+          }).then(() => {
+            window.location.reload()
+          });
+        }
+    })
+  })
+
+
+</script>
+</body>
+</html>
